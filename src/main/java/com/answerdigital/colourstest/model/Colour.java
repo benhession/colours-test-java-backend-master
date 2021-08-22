@@ -27,6 +27,10 @@ public class Colour {
         this.name = name;
     }
 
+    public Colour(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

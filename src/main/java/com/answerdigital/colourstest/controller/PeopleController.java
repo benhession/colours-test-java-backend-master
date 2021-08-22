@@ -3,6 +3,7 @@ package com.answerdigital.colourstest.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.answerdigital.colourstest.dto.AddPersonDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,18 +76,32 @@ public class PeopleController {
             person.setColours(personUpdate.getColours());
 
             try {
-                Person savedPerson = peopleRespository.save(person);
-
-                return new ResponseEntity<>(savedPerson, HttpStatus.OK);
-
+                return new ResponseEntity<>(peopleRespository.save(person), HttpStatus.OK);
             } catch (Exception e) {
-                logger.warn("Error saving person: ".concat(e.getMessage()));
-
-                return new ResponseEntity<>(null, HttpStatus.PRECONDITION_FAILED);
+                logger.warn("Exception in updatePerson. Unable to save Person: ".concat(e.getMessage()));
+                return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
             }
 
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping(consumes = "application/json")
+    public ResponseEntity<Person> addPerson(@RequestBody AddPersonDTO addPersonDTO) {
+        Person person = new Person(
+                addPersonDTO.getFirstname(),
+                addPersonDTO.getLastname(),
+                addPersonDTO.isAuthorised(),
+                addPersonDTO.isEnabled(),
+                addPersonDTO.getColours()
+        );
+
+        try {
+            return new ResponseEntity<>(peopleRespository.save(person), HttpStatus.CREATED);
+        } catch (Exception e) {
+            logger.warn("Exception in addPerson. Unable to save Person: ".concat(e.getMessage()));
+            return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
         }
     }
 

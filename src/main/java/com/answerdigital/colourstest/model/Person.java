@@ -55,6 +55,14 @@ public class Person {
         this.colours = colours;
     }
 
+    public Person(String firstName, String lastName, boolean authorised, boolean enabled, List<Colour> colours) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.authorised = authorised;
+        this.enabled = enabled;
+        this.colours = colours;
+    }
+
     public Long getId() {
         return id;
     }
