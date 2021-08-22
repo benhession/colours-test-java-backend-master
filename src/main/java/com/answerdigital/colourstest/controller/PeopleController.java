@@ -71,7 +71,7 @@ public class PeopleController {
             Person person = thePerson.get();
 
             person.setAuthorised(personUpdate.isAuthorised());
-            person.setEnabled(person.isEnabled());
+            person.setEnabled(personUpdate.isEnabled());
             person.setColours(personUpdate.getColours());
 
             try {
