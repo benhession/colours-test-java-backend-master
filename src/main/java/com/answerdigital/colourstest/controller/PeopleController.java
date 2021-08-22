@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import com.answerdigital.colourstest.dto.PersonUpdateDTO;
-import com.answerdigital.colourstest.exception.NotImplementedException;
 import com.answerdigital.colourstest.model.Person;
 import com.answerdigital.colourstest.repository.PeopleRepository;
 
@@ -23,7 +22,7 @@ public class PeopleController {
     @Autowired
     private PeopleRepository peopleRespository;
 
-    private Logger logger = LoggerFactory.getLogger("People Controller");
+    private final Logger logger = LoggerFactory.getLogger("People Controller");
 
     @GetMapping
     public ResponseEntity<List<Person>> getPeople() {
@@ -55,13 +54,13 @@ public class PeopleController {
     }
 
     @Transactional
-    @PatchMapping(path = "/{id}", consumes = "application/json")
+    @PutMapping(path = "/{id}", consumes = "application/json")
     public ResponseEntity<Person> updatePerson(@PathVariable("id") Long id, @RequestBody PersonUpdateDTO personUpdate) {
         // STEP 3
         //
-        // Implement an endpoint that recieves a JSON object to
+        // Implement an endpoint that receives a JSON object to
         // update a person using the PeopleRepository based on
-        // the id parameter. Once the person has been sucessfullly
+        // the id parameter. Once the person has been successfully
         // updated, the person should be returned from the endpoint.
         // If null is returned from the PeopleRepository then a
         // NotFound should be returned.
